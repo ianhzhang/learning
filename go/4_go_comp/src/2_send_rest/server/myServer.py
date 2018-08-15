@@ -43,7 +43,7 @@ def addPerson():
     print payload_data
     print type(payload_data)
     myFamily.append(payload_data)
-    return jsonify(payload_data)
+    return jsonify(myFamily)
 
 @app.route('/family/deletePerson/<int:index>', methods=["DELETE"])           # This is another url route
 def deletePerson(index):

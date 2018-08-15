@@ -72,8 +72,6 @@ func getOne(url string) {
 }
 
 func addPerson(url string) {
-	var person Person
-
 	fmt.Println(url)
 	// Play with map (json) data
 	jsonData := map[string]string{"ln": "Zhang", "fn": "Cat"}
@@ -84,7 +82,7 @@ func addPerson(url string) {
 	jsonData["ln"]="Sun"
 	fmt.Println(jsonData)										// map[ln:Zhang fn:Cat]
 
-	// convert
+	// convert byte array to json
 	jsonValue, _ := json.Marshal(jsonData)
 	fmt.Println(reflect.TypeOf(jsonValue))
 	fmt.Println(string(jsonValue))								// {"fn":"Cat","ln":"Sun"}
@@ -96,25 +94,33 @@ func addPerson(url string) {
         fmt.Printf("The HTTP request failed with error %s\n", err)
     } else {
 		fmt.Printf("\nParse the body-------==========================\n\n")
-	
-		_ = json.NewDecoder(resp.Body).Decode(&person)
-		fmt.Println(person)
-
-		//fmt.Println("12222----------------")
-		//data, _ := ioutil.ReadAll(resp.Body)
-		
-		//fmt.Println(reflect.TypeOf(data))			// []uint8
-		
-		//fmt.Println(string(data))
 		/*
-		fmt.Println("00000---------------------")
 		var result map[string]interface{}
+		fmt.Println(reflect.TypeOf(resp.Body))
+		enc := json.NewDecoder(resp.Body)
+		_ = enc.Decode(&result)
+		fmt.Println(result)
+		*/
+		
+		data, _ := ioutil.ReadAll(resp.Body)
+		fmt.Println(reflect.TypeOf(data))			// []uint8
+		fmt.Println(string(data))
+
+		// convert byte array to string
+		fmt.Println("00000---------------------")
+		var result []map[string]interface{}
 		json.Unmarshal([]byte(data), &result)
-		jsonData := result["data"]
+		jsonData := result[0]
 		fmt.Println(reflect.TypeOf(jsonData))			// string
 		fmt.Println(jsonData)
-		*/
-		fmt.Println("111111---------------------")
+		
+		fmt.Println("\n111111---------------------")
+		// convert byte array to object
+		var people []Person
+		_ = json.Unmarshal(data, &people)
+		fmt.Println(people)
+		fmt.Println(people[0])
+		
 	}
 	defer resp.Body.Close()
 }
@@ -122,11 +128,11 @@ func addPerson(url string) {
 
 func main() {
 	fmt.Println("------------------- get all -------------------")
-	getAll("http://localhost:5000/family/getAll")
+	//getAll("http://localhost:5000/family/getAll")
 
 	fmt.Println("------------------- get one -------------------")
 	//getOne("http://localhost:5000/family/getPerson/1")
 
-	//fmt.Println("------------------- add person -------------------")
-	//addPerson("http://localhost:5000/family/addPerson")
+	fmt.Println("------------------- add person -------------------")
+	addPerson("http://localhost:5000/family/addPerson")
 }
