@@ -1,0 +1,23 @@
+CRUD operation:
+
+GET:
+----------------------------------------------------------------------------------------------------------
+
+curl -v http://localhost:3000/family
+curl -v http://localhost:3000/family/2
+
+POST:
+----------------------------------------------------------------------------------------------------------
+curl -v -d 'id=6&fn=cat&ln=zhang' http://localhost:3000/family
+curl -v -d @new_name.json -H "Content-Type: application/json" http://localhost:3000/family
+
+PUT:
+----------------------------------------------------------------------------------------------------------
+curl -X PUT -v -d 'id=6&fn=cat1&ln=zhang' http://localhost:3000/family/6
+curl -X PUT -v -d 'fn=cat2&ln=zhang' http://localhost:3000/family/6
+curl -X PUT -v -d @new_name.json -H "Content-Type: application/json" http://localhost:3000/family/6
+(in new_name.json, id does not count.  url: http://localhost:3000/family/6 counts)
+
+Delete:
+----------------------------------------------------------------------------------------------------------
+curl -X DELETE -v  http://localhost:3000/family/6
