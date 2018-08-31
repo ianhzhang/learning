@@ -18,3 +18,7 @@ We can call reference function between files.
 
 
 
+This example demostrates:
+* from main, use different package (lib_greet, lib_book)
+* in same package (lib_greet), use function from different file.
+* in one sub package, use another package (lib_book/book1)

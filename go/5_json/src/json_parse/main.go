@@ -13,6 +13,7 @@ func main() {
 
 	var result map[string]interface{}
 	
+	// from byte array to map
 	_ = json.Unmarshal( []byte(str), &result);
 	fmt.Println("result:", result)
 	fmt.Println(reflect.TypeOf(result))
