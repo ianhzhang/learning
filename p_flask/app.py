@@ -25,20 +25,20 @@ def getInfo():
     resultFile = open("abc.pdf", "w+b")
     pisa.CreatePDF(htmlContent.encode('utf-8'), dest= resultFile)
 
-    print htmlContent
     return htmlContent
 
 @app.route("/getPdf/<id>", methods=["GET"])
 def getPdf(id):
-    print id
-    print "------------------------------"
+
     user = {
         'username': "Ian Zhang"
     }
-    htmlContent = render_template('t.html', user=user)
+    htmlContent = render_template('r1.html', user=user)
+    print htmlContent
     pdfBuff = StringIO()
 
     pisa.CreatePDF(StringIO(htmlContent.encode('utf-8')), pdfBuff)
+    #print pdfBuff.getvalue()
     response = make_response(pdfBuff.getvalue())
     response.headers['Content-Type'] = 'application/pdf'
     return response
