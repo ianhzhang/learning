@@ -1,0 +1,33 @@
+# https://10.68.67.222:5825/defender/api/api/clients/00:50:56:AB:F0:AD/movement?startDate=1534097936228&endDate=1536811199099
+
+endpoints/clients.py
+class DefenderClientMovement(Resource):
+
+   getClientMovement
+
+   resp = client.history.getHistory(startTime, endTime)
+
+   Roam, Registration, De-registration
+
+   [
+    {
+        "apName": "1701Y-1165900000", 
+        "apSerial": "1701Y-1165900000", 
+        "bssid": "D8:84:66:79:99:55", 
+        "details": "Port[1] DevFamily[Windows] DevType[Windows 8/ 8.1/ 10/ 2012] Hostname[DESKTOP-3RP007G]", 
+        "eventType": "Registration", 
+        "macAddress": "00:50:56:AB:F0:AD", 
+        "ssid": "DFNDR_Service", 
+        "timestamp": 1536612327135
+    }, 
+    {
+        "bssid": "D8:84:66:79:99:55", 
+        "details": "Network[DFNDR_Service] Cause[Unknown]", 
+        "eventType": "De-registration", 
+        "macAddress": "00:50:56:AB:F0:AD", 
+        "timestamp": 1536612187011
+    }, 
+  ]
+
+Time:  Event:  On AP:  From AP: (empty)    Detail,   ssid (we have service bssid, we can find ssid name) DFNDR_Service
+yes    no      yes     --                  no        yes
