@@ -17,7 +17,7 @@ export class AppComponent {
   constructor(private http: HttpClient, private sanitizer: DomSanitizer) {}
 
   ngOnInit() {
-    var pdfurl = "http://localhost:5000/getPdf/2";
+    var pdfurl = "http://localhost:5000/getPdf/2#view=FitH";
 
     this.innerHtml = this.sanitizer.bypassSecurityTrustHtml(
       "<object data='" + pdfurl + "' type='application/pdf' class='embed-responsive-item' width=100%; height=100%>" +
