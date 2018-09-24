@@ -1,0 +1,3 @@
+curl -w "\n" http://localhost:5000/getInfo
+
+curl -X POST -d 'user=izhang&pass=admin' http://localhost:5000/register1
