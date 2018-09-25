@@ -7,15 +7,14 @@ RUN apt-get install -y --no-install-recommends nginx python2.7 python-pip superv
 RUN rm -rf /var/lib/apt/lists/*
 
 RUN mkdir -p /var/www/html
-RUN mkdir -p /deploy/surgeBackend/server
-RUN mkdir -p /deploy/logs
+RUN mkdir -p /var/www/flaskserver/.not_remove
 
 COPY ./client/my-client/dist/* /var/www/html
-COPY ./server /deploy/surgeBackend/server
+COPY ./server /var/www/flaskserver
 
 
 RUN pip install --upgrade pip setuptools wheel
-RUN pip install -r /deploy/surgeBackend/server/requirements.txt
+RUN pip install -r /var/www/flaskserver/requirements.txt
 ##
 RUN rm /etc/nginx/sites-enabled/default
 COPY ./config/flask_nginx.conf /etc/nginx/sites-available/
