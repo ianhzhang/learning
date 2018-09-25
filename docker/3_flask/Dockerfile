@@ -1,26 +1,30 @@
 FROM ubuntu:16.04
+MAINTAINER Ian Zhang
+
 RUN apt-get update
 
-RUN apt-get install -y --no-install-recommends nginx
+RUN apt-get install -y --no-install-recommends nginx python2.7 python-pip supervisor
+RUN rm -rf /var/lib/apt/lists/*
 
 RUN mkdir -p /var/www/html
+RUN mkdir -p /var/www/flaskserver/.not_remove
 
 COPY ./client/my-client/dist/* /var/www/html
-COPY ./run.sh /
-
-
-# application server
-RUN mkdir -p /var/www/flaskserver/.not_remove
-RUN apt-get install -y --no-install-recommends python2.7 python-pip
-RUN apt-get install -y --no-install-recommends build-essential python
-RUN apt-get install -y --no-install-recommends python-dev
-RUN pip install --upgrade pip setuptools
-COPY ./requirements.txt /
-RUN pip install -r /requirements.txt
-COPY ./config/flask.service /etc/systemd/system/
-COPY ./config/flask_nginx.conf /etc/nginx/sites-available/
-RUN ls -s  /etc/nginx/sites-available/flask_nginx.conf /etc/nginx/sites-enabled/
 COPY ./server /var/www/flaskserver
-COPY ./config/proj.ini /var/www/flaskserver/
-CMD ["/run.sh"]
+
+
+RUN pip install --upgrade pip setuptools wheel
+RUN pip install -r /var/www/flaskserver/requirements.txt
+##
+RUN rm /etc/nginx/sites-enabled/default
+COPY ./config/flask_nginx.conf /etc/nginx/sites-available/
+RUN ln -s /etc/nginx/sites-available/flask_nginx.conf /etc/nginx/sites-enabled/flask_nginx.conf
+
+
+RUN echo "daemon off;" >> /etc/nginx/nginx.conf
+
+COPY ./config/flask.conf /etc/supervisor/conf.d/flask.conf
+COPY ./config/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+
+CMD ["/usr/bin/supervisord"]
 

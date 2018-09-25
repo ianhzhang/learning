@@ -4,11 +4,11 @@ from flask_cors import CORS
 
 
 # global variable
-app = Flask(__name__)
-CORS(app)
+application = Flask(__name__)
+CORS(application)
 
     
-@app.route('/hello', methods=["GET"])
+@application.route('/hello', methods=["GET"])
 def hello():
     print request.remote_addr
     return jsonify({"rslt": "hello World"})
@@ -16,5 +16,5 @@ def hello():
 
 
 if __name__ == '__main__':
-    app.run(debug=True, port=5001)
+    application.run(debug=True, port=5000, host='0.0.0.0')
     
