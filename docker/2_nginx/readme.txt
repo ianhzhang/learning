@@ -1,7 +1,7 @@
 docker build -t my-ubuntu .
 docker save  my-ubuntu -o my-ubuntu.docker
 
-docker run --name my-ubuntu -d -p 80:80 nginx
+docker run --name my-ubuntu -d -p 80:80 my-ubuntu
 
 IZHANG-C02WK04F:2_nginx izhang$ docker container ls
 CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS                NAMES

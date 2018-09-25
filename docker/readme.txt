@@ -1,3 +1,7 @@
+sudo apt install docker.io
+sudo docker run hello-world
+
+
 1. List all images
 docker images
 

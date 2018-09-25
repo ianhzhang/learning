@@ -1,0 +1,17 @@
+#/etc/systemd/system/
+# responsible to run uwsgi at init time
+
+[Unit]
+Description=uWSGI instance to serve flaskproject
+After=network.target
+
+[Service]
+User=user
+Group=user
+WorkingDirectory=/var/www/flaskserver
+
+ExecStart=/usr/local/bin/uwsgi --ini proj.ini --logto /var/www/flaskserver/.not_remove/flask.log
+
+[Install]
+WantedBy=multi-user.target
+
