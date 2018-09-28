@@ -27,7 +27,7 @@ func main() {
 	http.Handle("/", fileServer)
 	http.HandleFunc("/api/hello", handleHello)
 
-	err := http.ListenAndServe("localhost:8080", nil)
+	err := http.ListenAndServe("0.0.0.0:8000", nil)
 	if err != nil {
 		log.Fatal("err starting http server: ", err)
 		return

@@ -1,8 +1,0 @@
-FROM ubuntu:16.04
-
-RUN mkdir -p /var/www/server/static
-
-COPY fileserver /var/www/server/
-COPY ./static/* /var/www/server/static/
-
-#CMD ["/var/www/server/fileserver"]
