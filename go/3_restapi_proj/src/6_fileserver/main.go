@@ -8,7 +8,7 @@ import (
 	"encoding/json"
 )
 
-
+import "6_fileserver/business"
 
 func handleHello(w http.ResponseWriter, r *http.Request) {
 	type Response struct {
@@ -16,6 +16,9 @@ func handleHello(w http.ResponseWriter, r *http.Request) {
 	}
 
 	fmt.Println("Handle Hello 6")
+	business.Process_1()
+	business.Process_2()
+
 	rslt := Response{Rslt:"succ3"}
 	fmt.Println(rslt)
 	json.NewEncoder(w).Encode(rslt)
