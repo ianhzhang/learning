@@ -21,7 +21,6 @@ func main() {
 
 	resp, err := resty.R().
 		SetHeader("Content-Type", "application/json").
-		//SetBody(`{"id":"2","ln":"Sun","fn":"Hong"}`).
 		SetBody(nameStrByte).
 		Post(url)
 		
