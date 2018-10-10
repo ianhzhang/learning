@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Title</title>
+</head>
+<body>
+    <h1>欢迎登录：{{user_dict.User.NickName}}</h1>
+    <h3>最近联系人</h3>
+    <ul>
+        {% for user in user_dict.ContactList%}
+        <li>{{user.NickName}}</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
+
+
+<!--
+    https://blog.csdn.net/u013210620/article/details/80241990#%E7%A4%BA%E4%BE%8B%E4%BB%A3%E7%A0%81
+---------------------
+作者：Saflyer 
+来源：CSDN 
+原文：https://blog.csdn.net/u013210620/article/details/80241990?utm_source=copy 
+版权声明：本文为博主原创文章，转载请附上博文链接！
+-->
