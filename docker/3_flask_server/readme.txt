@@ -13,8 +13,6 @@ docker run --name my-ubuntu -d -t -p 8080:80 my-ubuntu
 docker container rm -f $(docker ps -a -q)
 docker rmi -f $(docker images -a -q)
 
-
-http://localhost:8080/hello
 docker run --name my-ubuntu -d -t -p 8080:5000 my-ubuntu; docker container ls
 
 
@@ -29,3 +27,8 @@ function dockerbash() {
    echo "xxx"
    docker container exec -it $1 /bin/bash
 }
+
+=======================================================================================================
+docker run --name my-ubuntu -d -t -p 8080:5000 my-ubuntu
+
+http://0.0.0.0:8080/api/hello
