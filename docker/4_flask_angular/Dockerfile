@@ -1,29 +1,35 @@
 FROM ubuntu:16.04
 MAINTAINER Ian Zhang
+# 1. nginx
 
-RUN apt-get update
-
-RUN apt-get install -y --no-install-recommends nginx python2.7 python-pip supervisor
-RUN rm -rf /var/lib/apt/lists/*
-
+# 1.1 Copy
 RUN mkdir -p /var/www/html
-RUN mkdir -p /var/www/flaskserver/.not_remove
-
 COPY ./client/my-client/dist/* /var/www/html
-COPY ./server /var/www/flaskserver
 
+# 1.2 Install
+RUN apt-get update
+RUN apt-get install -y --no-install-recommends nginx 
 
-RUN pip install --upgrade pip setuptools wheel
-RUN pip install -r /var/www/flaskserver/requirements.txt
-##
+# 1.3 Config
 RUN rm /etc/nginx/sites-enabled/default
 COPY ./config/flask_nginx.conf /etc/nginx/sites-available/
 RUN ln -s /etc/nginx/sites-available/flask_nginx.conf /etc/nginx/sites-enabled/flask_nginx.conf
-
-
 RUN echo "daemon off;" >> /etc/nginx/nginx.conf
 
-COPY ./config/flask.conf /etc/supervisor/conf.d/flask.conf
+# 2. Python Flask server
+
+# 2.1 Copy
+RUN mkdir -p /var/www/flaskserver/.not_remove
+COPY ./server /var/www/flaskserver
+
+# 2.2 Install
+RUN apt-get install -y --no-install-recommends python2.7 python-pip supervisor
+RUN pip install --upgrade pip setuptools wheel
+RUN pip install -r /var/www/flaskserver/requirements.txt
+
+
+# 3. Start with Supervisord
+COPY ./config/flask_supervisord.conf /etc/supervisor/conf.d/flask.conf
 COPY ./config/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
 CMD ["/usr/bin/supervisord"]

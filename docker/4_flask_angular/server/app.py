@@ -11,7 +11,7 @@ CORS(application)
 @application.route('/hello', methods=["GET"])
 def hello():
     print request.remote_addr
-    return jsonify({"rslt": "hello World"})
+    return jsonify({"rslt": "hello World 1"})
     
 
 

@@ -28,7 +28,7 @@ export class AppComponent {
     // http://0.0.0.0:8080/api/hello works
     // http://0.0.0.0:5000/api/hello should not work. browser is outside container and cannot access to container
     
-    this.http.get("http://0.0.0.0:8080/api/hello").subscribe(data=> {
+    this.http.get("/api/hello").subscribe(data=> {
       console.log(data)
       this.result = data["rslt"]
     })
