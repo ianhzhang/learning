@@ -1,11 +1,10 @@
 import psycopg2
-
+import os
 # Need manually create mydb
-conn = psycopg2.connect("dbname='mydb' user='postgres' host='35.232.138.124' password='abc123'")
+user = os.environ['USER']
+passwd = os.environ['PASS']
 
-print conn
-
-
+conn = psycopg2.connect(host='35.232.138.124', dbname='mydb', user=user, password=passwd)
 
 def printTbl():
     print("--------------------")
