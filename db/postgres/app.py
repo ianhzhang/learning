@@ -4,7 +4,6 @@ import os
 user = os.environ['USER']
 passwd = os.environ['PASS']
 
-conn = psycopg2.connect(host='35.232.138.124', dbname='mydb', user=user, password=passwd)
 
 def printTbl():
     print("--------------------")
@@ -17,27 +16,41 @@ def printTbl():
 
     print("--------------------")
 
-mycursor = conn.cursor()
+conn = None
+try:
+    conn = psycopg2.connect(host='35.232.138.124', dbname='mydb', user=user, password=passwd, connect_timeout=2.5)
+except:
+    print "Cannot connect "
 
-print("1. drop table fooTbl")
-mycursor.execute("drop table if exists fooTbl;")
+if conn:
+    mycursor = conn.cursor()
 
-print("2. Create fooTbl table")
-mycursor.execute("create table fooTbl (id SERIAL primary key, name text);")
+    print("1. drop table fooTbl")
+    mycursor.execute("drop table if exists fooTbl;")
 
-print("3. Insert tble")
-mycursor.execute("insert into fooTbl(name) values ('Ian Zhang')")
-mycursor.execute("insert into fooTbl(name) values ('Kevin Zhang')")
-mycursor.execute("insert into fooTbl(name) values ('Lucas Zhang')")
-printTbl()
+    print("2. Create fooTbl table")
+    mycursor.execute("create table fooTbl (id SERIAL primary key, name text);")
 
-print("4. update row")
-mycursor.execute("update fooTbl set name = 'Hong Sun' WHERE id =3")
-printTbl()
+    print("3. Insert tble")
+    mycursor.execute("insert into fooTbl(name) values ('Ian Zhang')")
+    mycursor.execute("insert into fooTbl(name) values ('Kevin Zhang')")
+    mycursor.execute("insert into fooTbl(name) values ('Lucas Zhang')")
+    printTbl()
 
-print("5. delete row")
-mycursor.execute("delete from fooTbl WHERE id =3")
-printTbl()
+    print("4. select row")
+    mycursor.execute("select * from fooTbl where id=1")
+    rslt = mycursor.fetchall()
+    print rslt
+    print len(rslt)     ## if it is 0, that means find nothing.
+
+
+    print("5. update row")
+    mycursor.execute("update fooTbl set name = 'Hong Sun' WHERE id =3")
+    printTbl()
+
+    print("6. delete row")
+    mycursor.execute("delete from fooTbl WHERE id =3")
+    printTbl()
 
 
 
