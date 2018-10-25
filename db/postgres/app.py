@@ -18,7 +18,8 @@ def printTbl():
 
 conn = None
 try:
-    conn = psycopg2.connect(host='35.232.138.124', dbname='mydb', user=user, password=passwd, connect_timeout=2.5)
+    conn = psycopg2.connect(host='35.232.138.124', dbname='mydb', user=user, password=passwd, connect_timeout=5)
+    conn.autocommit = True
 except:
     print "Cannot connect "
 

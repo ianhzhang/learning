@@ -12,12 +12,15 @@ def get_v4_netinfo():
         ipv6_addr = ""
 
         for snicaddr in nics[ifname]:
-
-            if snicaddr.family == 18:  # IPV4
+            print snicaddr
+            print "----"
+            if snicaddr.family == 18 or snicaddr.family == 17:  #MAC      apple 18, ubuntu 17
                 mac_addr = snicaddr.address
+
             if snicaddr.family == 2:
                 ipv4_addr = snicaddr.address
-            if snicaddr.family == 30:
+
+            if snicaddr.family == 30 or snicaddr.family == 10:       # apple 30, ubuntu 10 
                 ipv6_addr = snicaddr.address
 
         if mac_addr != "" and ipv4_addr !="":
