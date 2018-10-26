@@ -1,0 +1,10 @@
+#myCanvasArea {
+    width: 800px;
+    height: 600px;
+    background-color: aqua;
+    margin:20px;
+}
+
+#canvas {
+    background-color: rebeccapurple;
+}
