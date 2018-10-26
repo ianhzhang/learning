@@ -3,7 +3,7 @@ package main
 import "encoding/json"
 import "fmt"
 import "os"
-
+import "reflect"
 // We'll use these two structs to demonstrate encoding and
 // decoding of custom types below.
 type response1 struct {
@@ -21,32 +21,36 @@ func main() {
 	// JSON strings. Here are some examples for atomic
 	// values.
 	bolB, _ := json.Marshal(true)
-	fmt.Println(string(bolB))
+	fmt.Println(string(bolB))				// true
 	fmt.Println("------------------2")
 
 	intB, _ := json.Marshal(1)
-	fmt.Println(string(intB))
+	fmt.Println(string(intB))				// 1
 	fmt.Println("-------------------3")
 
 	fltB, _ := json.Marshal(2.34)
-	fmt.Println(string(fltB))
-	fmt.Println("--------------------4")
+	fmt.Println(reflect.TypeOf(fltB))		// []uint8
+	fmt.Println(string(fltB))				// 2.34
+	fmt.Println("--------------------4\n")
 
 	strB, _ := json.Marshal("gopher")
-	fmt.Println(string(strB))
-	fmt.Println("-----------------------5")
+	fmt.Println(reflect.TypeOf(strB))		// []uint8
+	fmt.Println(string(strB))				// gopher
+	fmt.Println("-----------------------5\n")
 
 	// And here are some for slices and maps, which encode
 	// to JSON arrays and objects as you'd expect.
 	slcD := []string{"apple", "peach", "pear"}
 	slcB, _ := json.Marshal(slcD)
-	fmt.Println(string(slcB))
-	fmt.Print("-------------------------6")
+	fmt.Println(reflect.TypeOf(slcB))		// []uint8
+	fmt.Println(string(slcB))				// ["apple","peach","pear"]
+	fmt.Print("-------------------------6\n")
 
 	mapD := map[string]int{"apple": 5, "lettuce": 7}
+	fmt.Println(reflect.TypeOf(mapD))		//  map[string]int
 	mapB, _ := json.Marshal(mapD)
-	fmt.Println(string(mapB))
-	fmt.Print("---------------------7")
+	fmt.Println(string(mapB))				// {"apple":5,"lettuce":7}
+	fmt.Print("---------------------7\n")
 
 	// The JSON package can automatically encode your
 	// custom data types. It will only include exported
@@ -55,9 +59,11 @@ func main() {
 	res1D := &response1{
 		Page:   1,
 		Fruits: []string{"apple", "peach", "pear"}}
+	fmt.Println(reflect.TypeOf(res1D))			// *main.response1
 	res1B, _ := json.Marshal(res1D)
-	fmt.Println(string(res1B))
-	fmt.Print("--------------------8")
+	fmt.Println(reflect.TypeOf(res1B))			// []uint8
+	fmt.Println(string(res1B))					//  {"Page":1,"Fruits":["apple","peach","pear"]}
+	fmt.Print("--------------------8\n")
 
 	// You can use tags on struct field declarations
 	// to customize the encoded JSON key names. Check the
@@ -68,7 +74,7 @@ func main() {
 		Fruits: []string{"apple", "peach", "pear"}}
 	res2B, _ := json.Marshal(res2D)
 	fmt.Println(string(res2B))
-	fmt.Print("----------------------- 9")
+	fmt.Print("----------------------- 9\n")
 
 	// Now let's look at decoding JSON data into Go
 	// values. Here's an example for a generic data
@@ -87,7 +93,7 @@ func main() {
 		panic(err)
 	}
 	fmt.Println(dat)
-	fmt.Print("-------------------- 10")
+	fmt.Print("-------------------- 10\n")
 	// In order to use the values in the decoded map,
 	// we'll need to cast them to their appropriate type.
 	// For example here we cast the value in `num` to

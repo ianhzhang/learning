@@ -23,6 +23,7 @@ func main() {
 	cbuff1.Append(14)
 	cbuff1.Append(15)
 	cbuff1.Append(16)
+	
 	max, min, avg := cbuff1.Stats()
 	fmt.Printf("max %d, min %d, avg %f\n", max,min,avg)
 }
