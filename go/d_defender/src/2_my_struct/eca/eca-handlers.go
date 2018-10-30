@@ -4,6 +4,8 @@ import (
 	"net/http"
 	"fmt"
 	"reflect"
+	"github.com/gorilla/mux"
+	"strconv"
 )
 
 func GetHello1(w http.ResponseWriter, r *http.Request) {
@@ -25,4 +27,22 @@ func GetHello2(w http.ResponseWriter, r *http.Request) {
 
 	w.Header().Set("Content-Type", "application/json")
 	fmt.Fprintf(w, str)
+}
+
+func GetData(w http.ResponseWriter, r *http.Request) {
+	
+	//w.Header().Set("Content-Type", "application/json; charset=UTF-8")
+
+	vars := mux.Vars(r)
+	name := vars["name"]
+	seq := vars["seq"]
+	fmt.Println("ECA GetData", name)
+	fmt.Println(reflect.TypeOf(seq))
+	fmt.Println(seq)
+	i, err := strconv.Atoi(seq)
+	fmt.Println(err)
+	if err == nil {
+		fmt.Println(i)
+	}
+	fmt.Fprintf(w, "Hello GetData " + name)
 }

@@ -17,4 +17,10 @@ var ECARoutes = []common.Route{
 		"/eca/getHello2",
 		GetHello2,
 	},
+	{
+		"GetData",
+		"GET",
+		"/eca/getData/{name}/{seq}",
+		GetData,
+	},
 }

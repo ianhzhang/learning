@@ -11,7 +11,6 @@ func main() {
 	fmt.Println("StartGo")
 
 	router := NewRouter()
-	fmt.Println(router)
 	
 	headersOk := handlers.AllowedHeaders([]string{"authorization", "content-type"})
 	originsOk := handlers.AllowedOrigins([]string{"*"})

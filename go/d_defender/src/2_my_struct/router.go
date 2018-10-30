@@ -7,10 +7,6 @@ import (
 )
 
 
-
-
-
-
 func NewRouter() *mux.Router {
 	fmt.Println("NewRouter")
 	router := mux.NewRouter().StrictSlash(true)
