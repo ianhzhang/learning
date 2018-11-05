@@ -35,4 +35,18 @@ func main() {
 
 	fmt.Println(mydata2)
 	
+	str1 := `{"data": {"a": 298202, "c": 258720, "b": 1234}}`
+
+	type DataItem1 struct {
+		A   int `json:"a"`
+		B   int `json:"b"`
+	}
+	type DataRcd1 struct {
+		Data DataItem1 `json:"data"`
+	}
+
+	myData1 := DataRcd1{}
+	json.Unmarshal([]byte(str1), &myData1)
+	fmt.Println(myData1)
+	
 }
