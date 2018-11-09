@@ -13,6 +13,10 @@ func main() {
     }
 
     for _, f := range files {
+        if !f.IsDir() {
             fmt.Println(f.Name())
+            fmt.Println(f.Size())
+			fmt.Println("-----------")
+        }
     }
 }
