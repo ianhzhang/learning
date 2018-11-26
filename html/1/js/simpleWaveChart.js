@@ -16,7 +16,7 @@ function SimpleWaveChart(options) {
     [this.x1,this.y1] = SimpleWaveChart.prototype.convertCoor(0,0)
 
     this.ctx = canvas.getContext('2d');
-    this.ctx.strokeStyle="#008000";
+    this.ctx.strokeStyle="green";
     this.ctx.lineWidth = 3;
 
 }
@@ -39,12 +39,25 @@ SimpleWaveChart.prototype.line = function(x,y) {
     this.ctx.clearRect(x2, 0, 40, H);
 
     // Draw line
+
+    this.ctx.beginPath()
+    this.ctx.arc(this.x1,this.y1,1.8,0,2*Math.PI);
+    this.ctx.fillStyle="green";
+    this.ctx.fill();
+
     this.ctx.beginPath();
+
     this.ctx.moveTo(this.x1,this.y1);
     this.ctx.lineTo(x2,y2);
     this.ctx.stroke();
+    
     this.x1 = x2;
     this.y1 = y2;
+
+    this.ctx.beginPath();
+    this.ctx.arc(x2,y2,1.8,0,2*Math.PI);
+    this.ctx.fillStyle="red";
+    this.ctx.fill();
 
 }
 
