@@ -1,0 +1,482 @@
+OPEN DOMAIN (RETURN CACHED VERSION IF AVAILABLE)
+
+{
+  policy{
+    openDomain(input:{
+      name:"Default Policy Domain"
+      returnCachedData:true
+    }){
+      status
+      errorMessage
+    }
+  }
+}
+
+SAVE DOMAIN
+
+mutation{
+  policyMutations{
+    saveDomain(input:{name:"Default Policy Domain"}){
+      status
+    }
+  }
+}
+
+GET DOMAIN DATA (Roles & Services) FROM DATABASE (Ignores any cached domain data that may exist for the client):
+
+{
+  policy{
+    domain(name:"Default Policy Domain"){
+    	name
+      PolicyRoleList{
+        name
+        services {
+          name
+          rules {
+            name
+          }
+        }
+      }
+      PolicyServiceDataList{
+        name
+          rules {       
+            name
+        }
+      }
+    }
+  }
+}
+
+START VERIFY:
+
+{
+  policy{
+    verifyDomain(input:{ name:"Default Policy Domain" })
+    {
+      result{
+        ... on PolicyEnforceResult{
+          uniqueId
+        }
+      }
+    }
+  }
+}
+
+START ENFORCE:
+
+mutation{
+  policyMutations{
+    enforceDomain(input:{ name:"Default Policy Domain" })
+    {
+      result{
+        ... on PolicyEnforceResult{
+          uniqueId
+        }
+      }
+    }
+  }
+}
+
+ENFORCE/VERIFY RESULTS (USE uniqueId FROM VERIFY/ENFORCE START CALL):
+
+{
+  policy {
+    enforceVerifyDomainResult(input: {
+      name: "Default Policy Domain", 
+      uniqueId: "1852535012/1539875142820"}) {
+      result {
+        ... on PolicyEnforceResult {
+          devicesRemaining
+          domainName
+          duration
+          enforce
+          mismatch
+          needsSave
+          pduCount
+          startTime
+          toString
+          uniqueId
+          errorMsg
+          errorData {
+            key
+            value
+          }
+          mismatchData {
+            key
+            value
+          }
+        }
+      }
+    }
+  }
+}
+
+
+GET CACHED DOMAIN DATA OBJECT (Policy)
+
+{
+  policy {
+    cachedDomainObject(input:{
+      domainName:"Default Policy Domain"
+      name:"Assessing"
+      dataType:PolicyRole
+    }){
+      status
+      errorCode
+      errorMessage
+      result{
+        ... on PolicyDomainResult{
+          modified
+          isSuccess
+          data{
+            ... on PolicyRole{
+              name
+              nsi
+              vlanAction
+              policyVlan{
+                name
+                vid
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+GET CACHED DOMAIN DATA LIST (ALL ROLES)
+
+{
+  policy {
+    cachedDomainObject(input:{
+      domainName:"Default Policy Domain"
+      name:""
+      dataType:PolicyDomainData
+    }){
+      status
+      errorCode
+      errorMessage
+      result{
+        ... on PolicyDomainResult{
+          modified
+          isSuccess
+          data{
+            ... on PolicyDomainData{
+              PolicyRoleList{
+                name
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+
+CREATE POLICY W/ SERVICES
+
+mutation {
+  policyMutations {
+    mutateRoleData(input:{
+      domainName:"Default Policy Domain"
+      mutationType:CREATE
+      mutationData:{
+          name:"MyRole"
+          policyCos:"Scavenger"
+          policyVlan:1
+          nsi:123456
+          syslogStatus:ENABLED
+          services:[
+            { name:"Base Services" global:false }
+            { name:"Active Directory Services" }
+      ]
+      }
+    })
+      {
+      status
+      errorMessage
+      result{
+        data{
+          ... on PolicyRole{
+            name
+            vlanAction
+            nsi
+            policyVlan{ vid name }
+            policyCos{ name }
+            syslogStatus
+            services{
+              name
+              rules{
+                name
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+MODIFY POLICY (ROLE) DATA OBJECT (Add service)
+
+mutation {
+  policyMutations {
+    mutateRoleData(input:{
+      domainName:"Default Policy Domain"
+      mutationType:MODIFY
+      dataIdentifier:"MyRole"
+      mutationData:{
+          addServices:[
+            { name:"Redirect Web Services" global:false }
+      ]
+      }
+    })
+      {
+      status
+      errorMessage
+      result{
+        data{
+          ... on PolicyRole{
+            name
+            vlanAction
+            policyVlan{ vid name }
+            policyCos{ name }
+            syslogStatus
+            services{
+              name
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+CREATE SERVICE
+
+mutation {
+  policyMutations {
+    mutateServiceData(input:{
+      domainName:"Default Policy Domain"
+      mutationType:CREATE
+      dataIdentifier:{
+        name:"MyService"
+      }
+      mutationData:{
+          rules:[ 
+            {              
+              name:"MyRule"
+              policyVlan:4095
+              policyCos:"Scavenger"
+              trapStatus:PROHIBITED
+              trafDesc:{
+                trafDescTypeStr:IPADDRESSSOURCE
+                trafDescValueStr:"66.66.66.66/24"
+              }
+            }
+          ]
+      }
+    })
+      {
+      status
+      errorMessage
+      result{
+        data{
+          ... on PolicyServiceData{
+            name
+            vid
+            rules{
+              name
+              type
+              typeStr
+              vlanAction
+              policyCos {
+                displayName
+                dot1pPriority
+                index
+              }
+              trafDesc {
+                IPv6Address
+                extraData
+                name
+                toString
+                trafDescDisplayValueStr
+                trafDescExpandedMask
+                trafDescExpandedMaskStr
+                trafDescExpandedValue
+                trafDescExpandedValueStr
+                trafDescMask
+                trafDescMaskStr
+                trafDescPortFormatted
+                trafDescType
+                trafDescTypeStr
+                trafDescValue
+                trafDescValueStr
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+CREATE RULE
+
+mutation {
+  policyMutations {
+    mutateRuleData(input:{
+      domainName:"Default Policy Domain"
+      mutationType:CREATE
+      dataIdentifier:{
+        service:"MyService"
+        name:"MyRule"
+      }
+      mutationData:{
+          name:"MyRule"
+          policyVlan:4095
+          policyCos:"Scavenger"
+          syslogStatus:PROHIBITED
+          trafDesc:{
+            trafDescTypeStr:IPADDRESSSOURCE
+            trafDescValueStr:"10.54.180.1/24"
+          }
+      }
+    })
+      {
+      status
+      errorMessage
+      result{
+        data{
+          ... on PolicyRuleData{
+            name
+            syslogStatus
+            vlanAction
+	    policyVlan{ name vid }
+            policyCos{ name index }
+            trafDesc {
+              IPv6Address
+              extraData
+              name
+              trafDescDisplayValueStr
+              trafDescExpandedMask
+              trafDescExpandedMaskStr
+              trafDescExpandedValue
+              trafDescExpandedValueStr
+              trafDescMask
+              trafDescMaskStr
+              trafDescPortFormatted
+              trafDescType
+              trafDescTypeStr
+              trafDescValue
+              trafDescValueStr
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+MODIFY RULE
+
+mutation {
+  policyMutations {
+    mutateRuleData(input:{
+      domainName:"Default Policy Domain"
+      mutationType:MODIFY
+      dataIdentifier:{
+        service:"MyService"
+        name:"MyRule"
+      }
+      mutationData:{
+          name:"MyRule"
+          syslogStatus:ENABLED
+          trafDesc:{
+            trafDescTypeStr:IPADDRESSSOURCE
+            trafDescValueStr:"10.54.180.1"
+          }
+      }
+    })
+      {
+      status
+      errorMessage
+      result{
+        data{
+          ... on PolicyRuleData{
+            name
+            syslogStatus
+            vlanAction
+	    policyVlan{ name vid }
+            policyCos{ name index }
+            trafDesc {
+              IPv6Address
+              extraData
+              name
+              trafDescDisplayValueStr
+              trafDescExpandedMask
+              trafDescExpandedMaskStr
+              trafDescExpandedValue
+              trafDescExpandedValueStr
+              trafDescMask
+              trafDescMaskStr
+              trafDescPortFormatted
+              trafDescType
+              trafDescTypeStr
+              trafDescValue
+              trafDescValueStr
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+CREATE VLAN
+
+mutation {
+  policyMutations {
+    mutateVlanData(input:{
+      domainName:"Default Policy Domain"
+      mutationType:CREATE
+      dataIdentifier:2
+      mutationData:{
+          name:"MyVlan"
+      }
+    })
+      {
+      status
+      errorMessage
+      result{
+        data{
+          ... on PolicyVlan{
+            name
+            vid
+            dynamicEgressEnabled
+          }
+        }
+      }
+    }
+  }
+}
+
+DELETE VLAN
+
+mutation {
+  policyMutations {
+    mutateVlanData(input:{
+      domainName:"Default Policy Domain"
+      mutationType:DELETE
+      dataIdentifier:2
+    })
+      {
+      status
+      errorMessage
+    }
+  }
+}
+
+
