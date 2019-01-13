@@ -1,9 +1,11 @@
+// https://docs.sqlalchemy.org/en/latest/orm/tutorial.html
+
 
 from sqlalchemy.ext.declarative import declarative_base
+Base = declarative_base()
+
 from sqlalchemy import Column, ForeignKey, Integer, String
 from sqlalchemy.orm import relationship
-
-Base = declarative_base()
  
 class Person(Base):
     __tablename__ = 'person'
