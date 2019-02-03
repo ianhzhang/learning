@@ -1,0 +1,20 @@
+# 3
+Check checkbox:
+    elem.click()   # click the checkbox
+    elem.get_attribute('checked')       # return 'true' or nothing
+
+Check if 'button' enabled
+    elem.is_enabled()  # return True, False
+
+Fill text form
+    elem.send_keys("blahblah")
+    elem.clear()
+
+#4 
+- click and select
+* select the button call click
+* select option
+
+- Hoverable dropdown
+* elem = driver.find_element_by_css_selector('xxx')
+* ActionChains(driver).move_to_element(elem).perform()
