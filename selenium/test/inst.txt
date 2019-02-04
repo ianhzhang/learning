@@ -1,0 +1,29 @@
+from selenium import webdriver
+driver = webdriver.Chrome()
+driver.get('http://0.0.0.0:4200')
+element = driver.find_element_by_name('logo_image')
+logo_src = element.get_attribute('src')
+assert logo_src.endswith('/images/logo.svg')
+
+
+qrImg = driver.find_element_by_xpath("//div[@class='qrcodeDiv']//img")
+qrImg.click()
+print(driver.current_url)
+assert driver.current_url.endswith('#/monitor')
+
+driver = webdriver.Chrome()
+driver.get('http://0.0.0.0:4200/#/monitor')
+
+driver.find_element_by_xpath("//div[@name='setting']//button").click()
+ip=driver.find_element_by_xpath("//div[@name='ipAddr']//span").get_attribute('innerHTML')
+
+driver.find_element_by_xpath("//div[@name='forward_button']//button").click()
+
+driver.find_element_by_xpath("//div[@name='selectPatient_button']//button").click()
+driver.find_elements_by_xpath("//table[@name='patientTable']//tr")[2].click()
+driver.find_element_by_xpath("//*[contains(text(), 'Select')]").click()
+driver.find_element_by_xpath("//button[contains(., 'Select')]").click()
+
+driver.find_element_by_xpath("//span[@name='curPatientId']").get_attribute('innerHTML')
+
+
