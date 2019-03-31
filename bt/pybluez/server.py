@@ -8,7 +8,7 @@ import bluetooth
 # The MAC address of a Bluetooth adapter on the server. The server might have multiple Bluetooth adapters.
 hostMACAddress = '14:4F:8A:06:45:EA' 
 
-port = 3
+port = 20
 backlog = 1
 size = 1024
 
