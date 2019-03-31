@@ -5,7 +5,7 @@ hostMACAddress = '00:1A:7D:DA:71:11'    #yike
 
 # The MAC address of a Bluetooth adapter on the server. The server might have multiple Bluetooth adapters.
 
-port = 3 # 3 is an arbitrary choice. However, it must match the port used by the client.
+port = 22 # 3 is an arbitrary choice. However, it must match the port used by the client.
 backlog = 1
 size = 1024
 
