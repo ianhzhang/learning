@@ -1,6 +1,7 @@
 import socket
 
-hostMACAddress = '14:4F:8A:06:45:EA' 
+# hostMACAddress = '14:4F:8A:06:45:EA'  #nuc
+hostMACAddress = '00:1A:7D:DA:71:11'    #yike
 
 # The MAC address of a Bluetooth adapter on the server. The server might have multiple Bluetooth adapters.
 
