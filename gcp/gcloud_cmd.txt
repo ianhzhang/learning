@@ -1,0 +1,44 @@
+1. Install:
+curl -O https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-sdk-242.0.0-linux-x86_64.tar.gz
+tar zxvf google-cloud-sdk-242.0.0-linux-x86_64.tar.gz
+cd google-cloud-sdk
+./install.sh
+
+gcloud --version
+
+gcloud init
+
+2. Login
+
+gcloud auth login      # gcloud login
+gcloud auth revoke     # sign out
+gcloud auth list       # list account
+
+gcloud config set account ianhzhang@gmail.com  # switch the active account
+
+3. Project:
+gcloud projects list    # list all project
+gcloud config list      # list current project, current config
+
+gcloud config set project my-proj
+
+
+4. Components:
+gcloud commponts list   # list all component to show which one is installed
+gcloud components update  # update the component
+
+
+gcloud components install COMPONENT_ID
+gcloud components remove COMPONENT_ID
+
+
+5. API (Services)
+gcloud services list  # API enabled
+gcloud services list --available
+
+gcloud services list --available |grep engine
+appengine.googleapis.com                              App Engine Admin API
+appengineflex.googleapis.com                          Google App Engine Flexible Environment
+
+gcloud services enable appengine.googleapis.com            # enable app engine
+gcloud services enable cloudfunctions.googleapis.com       # enable cloud function
