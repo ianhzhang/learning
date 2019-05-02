@@ -12,3 +12,6 @@ kotlinc hello.kt -include-runtime -d hello.jar
 
 java -jar hello.jar 
 
+Install intellij
+sudo snap install intellij-idea-community --classic --edge
+intellij-idea-community
