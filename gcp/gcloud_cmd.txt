@@ -21,7 +21,7 @@ gcloud projects list    # list all project
 gcloud config list      # list current project, current config
 
 gcloud config set project my-proj
-
+gcloud config set project saas-rdu
 
 4. Components:
 gcloud commponts list   # list all component to show which one is installed

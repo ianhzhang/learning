@@ -1,0 +1,11 @@
+# ignore everything
+*
+# except src/project/*
+!src/
+!src/project/
+!src/project/*
+
+# except readme.
+!readme.txt
+!.gitignore
+
