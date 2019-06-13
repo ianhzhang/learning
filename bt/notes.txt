@@ -1,0 +1,3 @@
+ vi /etc/systemd/system/dbus-org.bluez.service 
+vi /etc/systemd/system/dbus-org.bluez.service 
+ExecStart=/usr/lib/bluez5/bluetooth/bluetoothd -E -C

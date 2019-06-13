@@ -1,0 +1,47 @@
+btSocket = device.createRfcommSocketToServiceRecord(MY_UUID);
+btSocket.connect();
+out = btSocket.getOutputStream();
+String msg = sendTxt.getText().toString();
+byte[] msgBffr = msg.getBytes();
+out.write(msgBffr);
+
+btSocket.close();
+
+======================================================================
+mblue.cancelDiscovery();
+ tmp = device.createRfcommSocketToServiceRecord(myuuid);
+ ClientSocket = mmSocket = tmp;
+ mmSocket.connect();
+ mmSocket.close();
+
+tmpIn = socket.getInputStream();
+tmpOut = socket.getOutputStream();
+mmInStream = tmpIn;
+mmOutStream = tmpOut;
+mmOutStream.write(bytes);
+bytes = mmInStream.read(buffer);
+
+==============================================================================
+
+deviceAddress = E0:F8:47:3F:80:49
+BluetoothDevice device = BluetoothAdapter.getDefaultAdapter().getRemoteDevice(deviceAddress);
+BluetoothSocket socket = device.createRfcommSocketToServiceRecord(MY_UUID);
+socket.connect();
+
+=======================================================================================
+FlutterBlue flutterBlue = FlutterBlue.instance;
+
+/// Create a connection to the device
+var deviceConnection = flutterBlue.connect(device).listen((s) {
+    if(s == BluetoothDeviceState.connected) {
+        // device is connected, do something
+    }
+});
+
+/// Disconnect from device
+deviceConnection.cancel();
+============================================================================
+bluetooth = FlutterBluetoothSerial.instance;
+devices = await bluetooth.getBondedDevices();
+bluetooth.connect(_device)
+bluetooth.write("1");
