@@ -5,6 +5,9 @@ go get all
 go build localserver
 ./localserver
 
+http://localhost:5050/hello1/1
+http://localhost:5050/hello2 
+
 Deploy to google function:
 cd src/gcp_functions
 gcloud functions deploy Hello2Get --runtime go111 --trigger-http
