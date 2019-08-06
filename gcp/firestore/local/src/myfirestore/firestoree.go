@@ -35,7 +35,7 @@ func Test_firestore() {
 	}
 	defer client.Close()
 
-	iter := client.Collection("IanTest").Documents(ctx)
+	iter := client.Collection("TagContainer").Documents(ctx)
 	defer iter.Stop()
 
 	for {
@@ -46,7 +46,7 @@ func Test_firestore() {
 		if err != nil {
 			fmt.Print("error 2 ")
 		}
-
+		println("-----------------------------");
 		data := docIter.Data()
 		fmt.Println(data)
 
