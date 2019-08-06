@@ -60,3 +60,45 @@ doc.get() => then( function(document) {
 
 result= await Firestore.instance.collection("table_name").getDocument();
 List<DocumentSnapshot> documents - result.documents;
+ 
+===========================================================
+    // 1. get all
+    QuerySnapshot docs = await myCollectionRef.getDocuments();
+    List<DocumentSnapshot> result =  docs.documents;
+    print(result);
+    for (var d in result) {
+      print("xxxxx----");
+      print(d.data);
+      if (d.data!=null) {
+        print(d.data["ln"]);
+      }
+    }
+    print("---------------------------1111");
+    // 2. Get by id (async)
+    var doc = Firestore.instance.collection("Family").document("NhRLqcnG9TuHC9HvvMT4");
+    doc.get().then( (d) {
+      print("1111aaaa ------------");
+      print(d.data);
+    });
+    print("-----------------------------------222");
+
+    // 3. get by id (snapshot,)
+    DocumentReference myDocRef = myCollectionRef.document('NhRLqcnG9TuHC9HvvMT4');
+    var mysnapshot = myDocRef.snapshots();
+    print(mysnapshot.runtimeType);    //  _BroadcastStream<DocumentSnapshot>
+
+    // 3.1    
+    myDocRef.get().then((d) {
+      print("2222aaaa ----------------");
+      print(d.data);
+    });
+    
+    // 3.2
+    mysnapshot.forEach( (d) {
+      print(" 3333 aaaa ------------------");
+      var myData = d.data;
+      print(myData);
+      if (myData == null) {
+        print("not exist");
+      }
+    });
