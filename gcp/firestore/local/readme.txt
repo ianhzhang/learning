@@ -23,6 +23,7 @@ ctx := context.Background()
 client, err := firestore.NewClient(ctx, projectID)
 defer client.Close()
 
+// GetAll
 iter := client.Collection("TagContainer").Documents(ctx)
 docIter, err := iter.Next()
 data := docIter.Data()
@@ -59,7 +60,7 @@ doc.get() => then( function(document) {
 })
 
 result= await Firestore.instance.collection("table_name").getDocument();
-List<DocumentSnapshot> documents - result.documents;
+List<DocumentSnapshot> documents = result.documents;
  
 ===========================================================
     // 1. get all
