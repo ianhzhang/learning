@@ -1,3 +1,83 @@
 sudo npm install -g serverless
+sudo serverless config credentials --provider aws --key xxx --secret YYY --profile serverless-admin -o
 
+serverless -h
+sls -h
+
+sls create --template aws-python --path hello-world-python
+(this will create hello-world-python directory)
+cd hello-world-python
+
+change the serverless.yml:
+  profile: serverless-admin
+  region: us-east-2
+
+
+
+
+
+sls deploy -v
+user@user-VirtualBox:~/learning/aws/hello-world-python$ sls deploy -v
+Serverless: Packaging service...
+Serverless: Excluding development dependencies...
+Serverless: Creating Stack...
+Serverless: Checking Stack create progress...
+CloudFormation - CREATE_IN_PROGRESS - AWS::CloudFormation::Stack - hello-world-python-dev
+CloudFormation - CREATE_IN_PROGRESS - AWS::S3::Bucket - ServerlessDeploymentBucket
+CloudFormation - CREATE_IN_PROGRESS - AWS::S3::Bucket - ServerlessDeploymentBucket
+CloudFormation - CREATE_COMPLETE - AWS::S3::Bucket - ServerlessDeploymentBucket
+CloudFormation - CREATE_COMPLETE - AWS::CloudFormation::Stack - hello-world-python-dev
+Serverless: Stack create finished...
+Serverless: Uploading CloudFormation file to S3...
+Serverless: Uploading artifacts...
+Serverless: Uploading service hello-world-python.zip file to S3 (215 B)...
+Serverless: Validating template...
+Serverless: Updating Stack...
+Serverless: Checking Stack update progress...
+CloudFormation - CREATE_COMPLETE - AWS::S3::Bucket - ServerlessDeploymentBucket
+CloudFormation - CREATE_COMPLETE - AWS::CloudFormation::Stack - hello-world-python-dev
+CloudFormation - UPDATE_IN_PROGRESS - AWS::CloudFormation::Stack - hello-world-python-dev
+CloudFormation - CREATE_IN_PROGRESS - AWS::IAM::Role - IamRoleLambdaExecution
+CloudFormation - CREATE_IN_PROGRESS - AWS::IAM::Role - IamRoleLambdaExecution
+CloudFormation - CREATE_IN_PROGRESS - AWS::Logs::LogGroup - HelloLogGroup
+CloudFormation - CREATE_IN_PROGRESS - AWS::Logs::LogGroup - HelloLogGroup
+CloudFormation - CREATE_COMPLETE - AWS::Logs::LogGroup - HelloLogGroup
+CloudFormation - CREATE_COMPLETE - AWS::IAM::Role - IamRoleLambdaExecution
+CloudFormation - CREATE_IN_PROGRESS - AWS::Lambda::Function - HelloLambdaFunction
+CloudFormation - CREATE_IN_PROGRESS - AWS::Lambda::Function - HelloLambdaFunction
+CloudFormation - CREATE_COMPLETE - AWS::Lambda::Function - HelloLambdaFunction
+CloudFormation - CREATE_IN_PROGRESS - AWS::Lambda::Version - HelloLambdaVersionP8GZhiRqWbRzr8BNH6cXhe0AqPHJCkbTMkMjBe5VKTY
+CloudFormation - CREATE_IN_PROGRESS - AWS::Lambda::Version - HelloLambdaVersionP8GZhiRqWbRzr8BNH6cXhe0AqPHJCkbTMkMjBe5VKTY
+CloudFormation - CREATE_COMPLETE - AWS::Lambda::Version - HelloLambdaVersionP8GZhiRqWbRzr8BNH6cXhe0AqPHJCkbTMkMjBe5VKTY
+CloudFormation - UPDATE_COMPLETE_CLEANUP_IN_PROGRESS - AWS::CloudFormation::Stack - hello-world-python-dev
+CloudFormation - UPDATE_COMPLETE - AWS::CloudFormation::Stack - hello-world-python-dev
+Serverless: Stack update finished...
+Service Information
+service: hello-world-python
+stage: dev
+region: us-east-2
+stack: hello-world-python-dev
+resources: 5
+api keys:
+  None
+endpoints:
+  None
+functions:
+  hello: hello-world-python-dev-hello
+layers:
+  None
+
+Stack Outputs
+HelloLambdaFunctionQualifiedArn: arn:aws:lambda:us-east-2:606353053308:function:hello-world-python-dev-hello:1
+ServerlessDeploymentBucketName: hello-world-python-dev-serverlessdeploymentbucket-iwdoy6turqhk
+
+
+sls deploy -v  (deploy again)
+sls deploy function -f hello
+sls invoke -f hello -l
+sls logs -f hello
+
+sls logs -f hello -t (for continuing log)
+
+sls remove 
 
