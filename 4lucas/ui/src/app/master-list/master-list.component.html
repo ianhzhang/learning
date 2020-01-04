@@ -1,0 +1,62 @@
+<mat-toolbar class="mat-elevation-z0 topbar" style="padding:10px">
+   <img src="assets/netapp.png" style="height:30px;margin-right: 30px;"> <h2>NetApp Interview Project By Ian Zhang</h2>
+</mat-toolbar>
+<div class="" *ngIf="pageReady==false && timeoutCnt<15" style="text-align: center;">
+    <h1 style="margin-top: 150px;">Analysing All Images' contents.</h1>
+    <h1>  Please wait ....</h1>
+    <mat-spinner style="margin:50px auto"></mat-spinner>
+</div>
+<div class="" *ngIf="pageReady==false && timeoutCnt>14" style="text-align: center;">
+    <h1 style="margin-top: 150px;">Server Down.</h1>
+    <h1>  Please Call support </h1>
+</div>
+
+<div class="mat-card-list mainArea" style="flex:1;" *ngIf="pageReady == true">
+
+    <mat-card *ngFor='let imageItem of imageList' class="mat-card" card="cardBackground" >
+        <mat-card-title class="mat-card-title">
+            <span style="width:300px;overflow-wrap: break-word; background-color: rgb(238, 238, 116);">{{imageItem['title']}}</span>
+        </mat-card-title>
+
+        <mat-card-content>
+            <img src="{{imageItem['name']}}" class="thumbnail" style="text-align:center" />
+            <p class="Error" *ngIf="imageItem['exception']!=''">Exception:<br>{{imageItem['exception']}}</p>
+
+            <table style="width:100%; border-width:0px">
+                <tr>
+                    <td style="width: 120px">Size:</td>
+                    <td>{{imageItem['size']}} bytes</td>
+                </tr>
+                <tr>
+                    <td>Dimension:</td>
+                    <td>{{imageItem['width']}} x {{imageItem['height']}}</td>
+                </tr>
+                <tr style="color:blueviolet">
+                    <td colspan="2">&nbsp;</td>
+                </tr>
+                <tr style="color:blueviolet">
+                    <td>Machine Learning: </td>
+                    <td>{{imageItem['confidence']}}% Confidence</td>
+                </tr>
+                <tr style="color:blueviolet;">
+                    <td style="padding-bottom: 20px;">Identified as:</td>
+                    <td style="padding-bottom: 20px;">{{imageItem['label']}}</td>
+                </tr>
+            </table>
+
+            <span style="font-size: 10px; overflow-wrap: break-word;">
+                SHA-256: {{imageItem['sha256']}}
+            </span>
+
+        </mat-card-content>
+
+        <mat-card-actions>
+            <a target="_self" href="{{imageItem['name']}}" download="{{imageItem['name']}}">
+                <span style="margin-left:20px; font-size: 12px;">Download</span>
+           </a>
+        </mat-card-actions>
+
+
+    </mat-card>
+
+</div>

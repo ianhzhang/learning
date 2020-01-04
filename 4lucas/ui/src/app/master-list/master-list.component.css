@@ -1,0 +1,56 @@
+.topbar {
+    background-color: #888888;
+    color:#eee;
+    border-style: solid;
+    border-width:0 0px 4px 0px;
+}
+.mainArea {
+    background-color: #888;
+    color:#ddd;
+}
+
+
+.thumbnail {
+    max-width: 256px;
+    max-height: 256px;
+}
+
+.mat-card-list {
+    display: flex;
+    flex: 1 1;
+    flex-direction: 'row';      /* major axis is from left to right */
+    justify-content: center;   /* horizonal (major axis) center */
+    flex-wrap: wrap;
+    padding: 20px;
+    background-color: #888888;
+}
+
+
+.mat-card{
+    cursor: pointer;
+    display: inline-block;
+    margin: 20px;
+    vertical-align: top;
+    width: 380px;
+    height:500px;
+    background-color: lightgoldenrodyellow;
+}
+
+.mat-card-title {
+    font-size: 22px;
+    font-weight: 400;
+}
+
+.mat-card-summary{
+    min-height: 2em;
+    margin-bottom: 8px;
+}
+
+.cardBackground {
+    background-color: rgb(192, 232, 245);
+}
+
+.Error {
+    color: red;
+    font-weight: bold;
+}
