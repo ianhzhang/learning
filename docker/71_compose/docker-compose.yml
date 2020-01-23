@@ -1,0 +1,15 @@
+version: '3'
+services:
+  u1:
+    image: ubuntu:18.04
+    tty: true
+    networks:
+      - ihz_network
+  u2:
+    image: ubuntu:18.04
+    tty: true
+    networks:
+      - ihz_network
+networks:
+  ihz_network:
+    driver: bridge
