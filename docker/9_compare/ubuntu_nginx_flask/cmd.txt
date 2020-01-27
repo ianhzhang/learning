@@ -1,0 +1,56 @@
+1 -----------------------------------------------------------------------------------------------------
+From ubuntu ,add nginx
+Dockerfile1
+my-ubuntu           latest              5198d049b254        6 seconds ago       145MB
+ubuntu              18.04               ccc6e87d482b        10 days ago         64.2MB
+Total: 209MB
+
+(downloaded original nginx image: 127MB)
+-----------------------------------------------------------------------------------------------------
+Dockerfile2: (nginx + python3.7 flask)
+From downloaded ngix, add python flask
+
+docker images
+REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
+my-ubuntu           latest              529fbedf1798        37 seconds ago      186MB
+nginx               latest              5ad3bd0e67a9        4 days ago          127MB
+
+Total: 313MB
+
+-----------------------------------------------------------------------------------------------------
+Dockerfile3:  (ubuntu18.04 + nginx  + flask (everything self install))
+From ubuntu, add nginx, add python, add flask (everything do ourself)
+
+my-ubuntu           latest              fcd398cde78b        33 seconds ago      210MB
+ubuntu              18.04               ccc6e87d482b        10 days ago         64.2MB
+Total: 275MB
+
+downloaded tiangolo/uwsgi-nginx-flask:python3.7 : 968MB
+-----------------------------------------------------------------------------------------------------
+Dockerfile 4:
+In Dockerfile3, change ubuntu to debian
+REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
+my-ubuntu           latest              6fc57c714e57        15 seconds ago      231MB
+debian              latest              b5d2d9b1597b        4 weeks ago         114MB
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+================================================
+docker run -it ubuntu
+docker run -it debian
+
+docker images
+REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
+ubuntu              latest              ccc6e87d482b        10 days ago         64.2MB
+debian              latest              b5d2d9b1597b        4 weeks ago         114MB

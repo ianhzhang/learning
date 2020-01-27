@@ -1,0 +1,31 @@
+
+1 ----------------------------------------------------------------------------------------------------------
+docker run --name ian-nginx -v /home/user/docker/nginx_test:/usr/share/nginx/html:ro -d -p 8080:80 nginx
+
+
+2 ----------------------------------------------------------------------------------------------------------
+Alternatively: Dockerfile:
+FROM nginx
+COPY nginx.conf /etc/nginx/nginx.conf
+COPY static-html-directory /usr/share/nginx/html
+
+docker build -t ian-nginx .
+docker run -d -p 8080:80 ian-nginx
+
+3 ----------------------------------------------------------------------------------------------------------
+http://localhost:8080/
+docker container exec -it ian-nginx /bin/bash
+
+docker images
+127M
+cat /etc/os-release 
+PRETTY_NAME="Debian GNU/Linux 10 (buster)"
+NAME="Debian GNU/Linux"
+VERSION_ID="10"
+VERSION="10 (buster)"
+VERSION_CODENAME=buster
+ID=debian
+HOME_URL="https://www.debian.org/"
+SUPPORT_URL="https://www.debian.org/support"
+BUG_REPORT_URL="https://bugs.debian.org/"
+

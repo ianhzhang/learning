@@ -1,0 +1,37 @@
+
+docker run --name nginx-flask -d -p 5000:80 tiangolo/uwsgi-nginx-flask:python3.7
+http://localhost:5000/
+
+----------------------------------------------------------------------------------------------------
+docker container  exec -it nginx-flask /bin/bash
+
+cat /etc/os-release
+
+PRETTY_NAME="Debian GNU/Linux 9 (stretch)"
+NAME="Debian GNU/Linux"
+VERSION_ID="9"
+VERSION="9 (stretch)"
+VERSION_CODENAME=stretch
+ID=debian
+HOME_URL="https://www.debian.org/"
+SUPPORT_URL="https://www.debian.org/support"
+BUG_REPORT_URL="https://bugs.debian.org/"
+
+
+ls
+__pycache__  main.py  prestart.sh  uwsgi.ini
+
+ls /etc/nginx
+
+python --version
+Python 3.7.4
+
+--------------------------------------------------------------------------------------------------------------
+Dockerfile:
+
+FROM tiangolo/uwsgi-nginx-flask:python3.7
+COPY ./app /app
+COPY nginx.conf /etc/nginx/
+
+docker images
+968MB
