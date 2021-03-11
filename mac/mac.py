@@ -5,6 +5,6 @@ from uuid import getnode as get_mac
 # [2:] is to remove the prefix 0x
 
 mac_hex_str = hex( get_mac() )
-mac_str=':'.join(format(s, '02x') for s in bytes.fromhex(mac_hex_str[2:]))
+mac_str=':'.join(format(s, '02x') for s in bytes.fromhex(mac_hex_str[2:].zfill(12)))
 print(mac_str)
 
